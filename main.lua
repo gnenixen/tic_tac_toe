@@ -9,8 +9,7 @@ gamemodes = {}
 -- REGISTER ALL GAME MODES
 gamemodes["Player vs AI"] = {
     init = function()
-        local bPassed = false
-        while bPassed == false do
+        while true do
             io.write( "AI turn (1 or 2): " )
             local turn = tonumber( io.read() )
             if turn == 1 or turn == 2 then
@@ -86,8 +85,7 @@ function SetupBoard( irank )
 end
 
 function GetFromUserRankOfBoard()
-    local bPassed = false
-    while bPassed == false do
+    while true do
         io.write( "Please, enter rank of board: " )
         local r = tonumber( io.read() )
         if r >= 3 and r <= 5 then
@@ -106,7 +104,7 @@ function GetFromUserGameMode()
     end
 
     while true do
-        io.write( "Enter gamemode number you want to play: " );
+        io.write( "Enter gamemode number you want to play: " )
         local num = tonumber( io.read() )
         if num > 0 and num <= idx then
             idx = 1
@@ -186,13 +184,13 @@ function PlayerTurn( number )
 
     local bPlaced = false
     while bPlaced == false do
-        printf( "(%s)Where whould you like to play your turn?\n", GetSymbolForNumber( number ) );
+        printf( "(%s)Where whould you like to play your turn?\n", GetSymbolForNumber( number ) )
 
-        io.write( "X: " );
-        local x = tonumber( io.read() );
+        io.write( "X: " )
+        local x = tonumber( io.read() )
 
-        io.write( "Y: " );
-        local y = tonumber( io.read() );
+        io.write( "Y: " )
+        local y = tonumber( io.read() )
 
         bPlaced = SetCell( x - 1, y - 1, number )
         if bPlaced == false then
@@ -369,9 +367,9 @@ function IsGameOver()
 end
 
 function DrawGlobalSeparator()
-    print();
+    print()
     print( "+-----------------------------+" )
-    print();
+    print()
 end
 
 function DrawBoard()
@@ -401,7 +399,7 @@ function DrawBoard()
     end
 end
 
-print( "Welcome to Tic-Tac-Toe!\n" );
+print( "Welcome to Tic-Tac-Toe!\n" )
 
 math.randomseed( os.time() )
 for i = 0, 10 do
@@ -410,7 +408,7 @@ end
 
 SetupBoard( GetFromUserRankOfBoard() )
 
-local gamemode = GetFromUserGameMode();
+local gamemode = GetFromUserGameMode()
 
 gamemodes[gamemode]["init"]()
 while true do
@@ -422,7 +420,7 @@ while true do
 end
 
 DrawGlobalSeparator()
-print( "Final board:" );
+print( "Final board:" )
 DrawBoard()
 
 local winner = GetWinner()
