@@ -231,8 +231,23 @@ end
 function MinimaxAB( depth, number, alpha, beta )
     local best
 
-    if IsBoardFull() or EvaluateMinimaxResultAB() ~= 0 or depth == rank then
-        return {-1, -1, EvaluateMinimaxResultAB()}
+    local evaluatedMinimaxResult = EvaluateMinimaxResultAB();
+
+    if IsBoardFull() or evaluatedMinimaxResult ~= 0 then
+        return {-1, -1, evaluatedMinimaxResult}
+    end
+
+    -- Simple hack for faster execution of rank 5 AI
+    if rank == 5 and depth == 2 and GetTableLength( GetEmptyCells() ) > 10 then
+        return {-1, -1, evaluatedMinimaxResult}
+    end
+
+    if rank == 5 and depth == 3 and GetTableLength( GetEmptyCells() ) > 7 then
+        return {-1, -1, evaluatedMinimaxResult}
+    end
+
+    if depth == rank and rank > 3 then
+        return {-1, -1, evaluatedMinimaxResult}
     end
 
     if number == -1 then
